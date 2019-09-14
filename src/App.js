@@ -8,6 +8,7 @@ import {
   faRedo,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./App.css";
 
 // Load Font Awesome icons
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
@@ -126,7 +127,7 @@ class App extends Component {
         <br />
         <br />
 
-        <table style={{ width: "100%" }}>
+        <table>
           <thead>
             <tr>
               <th style={{ width: "300px" }}></th>
@@ -141,6 +142,12 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td>useful text here</td>
+              {this.state.players.map(_ => (
+                <td style={{ textAlign: "center" }}>hey</td>
+              ))}
+            </tr>
             <tr>
               <td>useful text here</td>
               {this.state.players.map(_ => (
