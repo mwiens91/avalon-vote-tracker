@@ -52,7 +52,7 @@ const getTableRowColor = missionState => {
   return "#ffffff";
 };
 
-const INITIAL_STATE = {
+const INITIAL_MISSION_STATE = {
   inProgress: false,
   locked: false,
   numPlayers: 5,
@@ -76,7 +76,7 @@ class App extends Component {
 
     this.minPlayers = 5;
     this.maxPlayers = 10;
-    this.state = INITIAL_STATE;
+    this.state = INITIAL_MISSION_STATE;
 
     this.addPlayer = this.addPlayer.bind(this);
     this.removePlayer = this.removePlayer.bind(this);
@@ -93,11 +93,8 @@ class App extends Component {
       players: [...this.state.players, ""],
       missions: [
         {
-          leader: 0,
-          missionNumber: 1,
-          selectionNumber: 1,
-          state: MISSION_IN_PROGRESS,
-          approves: Array(this.state.numPlayers + 1).fill(false),
+          ...INITIAL_MISSION_STATE,
+          approves: Array(this.state.numPlayers + 1).fill(true),
           onTeam: Array(this.state.numPlayers + 1).fill(false),
         },
       ],
@@ -115,11 +112,8 @@ class App extends Component {
       players: this.state.players.slice(0, this.state.numPlayers - 1),
       missions: [
         {
-          leader: 0,
-          missionNumber: 1,
-          selectionNumber: 1,
-          state: MISSION_IN_PROGRESS,
-          approves: Array(this.state.numPlayers - 1).fill(false),
+          ...INITIAL_MISSION_STATE,
+          approves: Array(this.state.numPlayers - 1).fill(true),
           onTeam: Array(this.state.numPlayers - 1).fill(false),
         },
       ],
@@ -170,6 +164,68 @@ class App extends Component {
     });
   }
 
+  addNewMission() {
+    let previousMission = this.state.missions[this.state.missions.length - 1];
+
+    // We should never be here if the previous mission is still in
+    // progress
+    if (previousMission.state === MISSION_IN_PROGRESS) {
+      throw new Error("adding new mission while mission still in progress");
+    }
+
+    // Don't allow the following:
+    // - over 5 rejected selections
+    // - more than 3 failed missions or 3 successful missions
+    if (
+      (previousMission.state === MISSION_REJECTED &&
+        previousMission.selectionNumber === 5) ||
+      this.state.missions.reduce(
+        (count, currMission) =>
+          currMission.state === MISSION_FAILED ? count + 1 : count,
+        0
+      ) >= 3 ||
+      this.state.missions.reduce(
+        (count, currMission) =>
+          currMission.state === MISSION_SUCCESSFUL ? count + 1 : count,
+        0
+      ) >= 3
+    ) {
+      return;
+    }
+
+    this.setState({
+      missions: [
+        ...this.state.missions,
+        {
+          leader: (previousMission.leader + 1) % this.state.numPlayers,
+          missionNumber:
+            previousMission.state === MISSION_REJECTED
+              ? previousMission.missionNumber
+              : previousMission.missionNumber + 1,
+          selectionNumber:
+            previousMission.state === MISSION_REJECTED
+              ? previousMission.selectionNumber + 1
+              : 1,
+          state: MISSION_IN_PROGRESS,
+          approves: Array(this.state.numPlayers).fill(true),
+          onTeam: Array(this.state.numPlayers).fill(false),
+        },
+      ],
+    });
+  }
+
+  removeCurrentMission() {
+    this.setState({
+      missions: [
+        ...this.state.missions.slice(0, this.state.missions.length - 2),
+        {
+          ...this.state.missions[this.state.missions.length - 2],
+          state: MISSION_IN_PROGRESS,
+        },
+      ],
+    });
+  }
+
   isReadyToStart() {
     return this.state.players.every(name => name !== "");
   }
@@ -188,7 +244,7 @@ class App extends Component {
             onRemovePlayer={this.removePlayer}
             onLock={() => this.setState({ locked: true })}
             onUnlock={() => this.setState({ locked: false })}
-            onReset={() => this.setState(INITIAL_STATE)}
+            onReset={() => this.setState(INITIAL_MISSION_STATE)}
             onStart={() => this.setState({ inProgress: true })}
           />
 
