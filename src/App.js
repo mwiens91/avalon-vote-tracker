@@ -12,15 +12,20 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // Load Font Awesome icons
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
+const INITIAL_STATE = {
+  numPlayers: 5,
+  players: ["player1", "player2", "player3", "player4", "player5"],
+  playersLocked: false,
+  quests: [[{ missionLeader: 0 }]],
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.minPlayers = 5;
     this.maxPlayers = 10;
-    this.state = {};
-
-    this.resetState();
+    this.state = INITIAL_STATE;
 
     this.addPlayer = this.addPlayer.bind(this);
     this.removePlayer = this.removePlayer.bind(this);
@@ -28,12 +33,7 @@ class App extends Component {
   }
 
   resetState() {
-    this.state = {
-      numPlayers: 5,
-      players: ["player1", "player2", "player3", "player4", "player5"],
-      playersLocked: false,
-      quests: [[{ missionLeader: 0 }]],
-    };
+    this.setState(INITIAL_STATE);
   }
 
   addPlayer() {
@@ -77,7 +77,9 @@ class App extends Component {
             <FontAwesomeIcon icon="minus" /> remove player
           </button>
 
-          <FontAwesomeIcon icon="redo" />
+          <button onClick={this.resetState}>
+            <FontAwesomeIcon icon="redo" /> reset
+          </button>
         </div>
 
         <br />
