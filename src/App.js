@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
 const INITIAL_STATE = {
+  locked: false,
   numPlayers: 5,
   players: ["player1", "player2", "player3", "player4", "player5"],
   playersLocked: false,
@@ -29,11 +30,6 @@ class App extends Component {
 
     this.addPlayer = this.addPlayer.bind(this);
     this.removePlayer = this.removePlayer.bind(this);
-    this.resetState = this.resetState.bind(this);
-  }
-
-  resetState() {
-    this.setState(INITIAL_STATE);
   }
 
   addPlayer() {
@@ -66,20 +62,31 @@ class App extends Component {
         <h1>Avalon vote tracker</h1>
 
         <div>
-          <FontAwesomeIcon icon="lock" />
-          <FontAwesomeIcon icon="lock-open" />
+          {this.state.locked ? (
+            <span>
+              <button onClick={() => this.setState({ locked: false })}>
+                <FontAwesomeIcon icon="lock-open" /> unlock
+              </button>
+            </span>
+          ) : (
+            <span>
+              <button onClick={this.addPlayer}>
+                <FontAwesomeIcon icon="plus" /> add player
+              </button>
 
-          <button onClick={this.addPlayer}>
-            <FontAwesomeIcon icon="plus" /> add player
-          </button>
+              <button onClick={this.removePlayer}>
+                <FontAwesomeIcon icon="minus" /> remove player
+              </button>
 
-          <button onClick={this.removePlayer}>
-            <FontAwesomeIcon icon="minus" /> remove player
-          </button>
+              <button onClick={() => this.setState({ locked: true })}>
+                <FontAwesomeIcon icon="lock" /> lock
+              </button>
 
-          <button onClick={this.resetState}>
-            <FontAwesomeIcon icon="redo" /> reset
-          </button>
+              <button onClick={() => this.setState(INITIAL_STATE)}>
+                <FontAwesomeIcon icon="redo" /> reset
+              </button>
+            </span>
+          )}
         </div>
 
         <br />
