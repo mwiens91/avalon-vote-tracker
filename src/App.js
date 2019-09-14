@@ -1,10 +1,16 @@
 import React, { Component } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faMinusSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import {
+  faLock,
+  faLockOpen,
+  faMinus,
+  faPlus,
+  faRedo,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 // Load Font Awesome icons
-library.add(faMinusSquare, faPlusSquare);
+library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
 class App extends Component {
   constructor(props) {
@@ -12,7 +18,8 @@ class App extends Component {
 
     this.state = {
       players: ["player1", "player2", "player3", "player4", "player5"],
-      quests: {},
+      playersLocked: false,
+      quests: [],
     };
   }
 
@@ -20,8 +27,11 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Avalon vote tracker</h1>
-        <FontAwesomeIcon icon="plus-square" />
-        <FontAwesomeIcon icon="minus-square" />
+        <FontAwesomeIcon icon="lock" />
+        <FontAwesomeIcon icon="lock-open" />
+        <FontAwesomeIcon icon="plus" />
+        <FontAwesomeIcon icon="minus" />
+        <FontAwesomeIcon icon="redo" />
         <br />
 
         <table style={{ width: "100%" }}>
