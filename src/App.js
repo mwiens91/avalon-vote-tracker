@@ -66,7 +66,9 @@ const EditablePlayerName = ({ name, onChange }) => {
           }
         />
       ) : (
-        <span onClick={e => setEditing(true)}>{name}</span>
+        <span onClick={e => setEditing(true)}>
+          {name.length >= 1 ? name : "<enter name>"}
+        </span>
       )}
     </span>
   );
