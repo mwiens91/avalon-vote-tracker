@@ -104,7 +104,7 @@ class App extends Component {
 
     this.setState({
       numPlayers: this.state.numPlayers + 1,
-      players: [...this.state.players, `player${this.state.numPlayers + 1}`],
+      players: [...this.state.players, ""],
     });
   }
 
