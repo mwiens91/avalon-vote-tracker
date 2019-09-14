@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faMinusSquare, faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+// Load Font Awesome icons
+library.add(faMinusSquare, faPlusSquare);
 
 class App extends Component {
   constructor(props) {
@@ -14,6 +20,9 @@ class App extends Component {
     return (
       <div className="App">
         <h1>Avalon vote tracker</h1>
+        <FontAwesomeIcon icon="plus-square" />
+        <FontAwesomeIcon icon="minus-square" />
+        <br />
 
         <table style={{ width: "100%" }}>
           <thead>
