@@ -4,6 +4,7 @@ import {
   faLock,
   faLockOpen,
   faMinus,
+  faPlay,
   faPlus,
   faRedo,
 } from "@fortawesome/free-solid-svg-icons";
@@ -14,7 +15,7 @@ import Footer from "./Footer";
 import HelpMessage from "./HelpMessage";
 
 // Load Font Awesome icons
-library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
+library.add(faLock, faLockOpen, faMinus, faPlay, faPlus, faRedo);
 
 const MISSION_IN_PROGRESS = "in progress";
 // const MISSION_REJECTED = "rejected";
@@ -85,6 +86,10 @@ class App extends Component {
     });
   }
 
+  isReadyToStart() {
+    return this.state.players.every(name => name !== "");
+  }
+
   render() {
     return (
       <div className="App">
@@ -93,16 +98,18 @@ class App extends Component {
 
           <ButtonMenu
             inProgress={this.state.inProgress}
+            isReady={this.isReadyToStart()}
             locked={this.state.locked}
             onAddPlayer={this.addPlayer}
             onRemovePlayer={this.removePlayer}
             onLock={() => this.setState({ locked: true })}
             onUnlock={() => this.setState({ locked: false })}
             onReset={() => this.setState(INITIAL_STATE)}
+            onStart={() => this.setState({ inProgress: true })}
           />
 
           <HelpMessage
-            isNaming={!this.state.players.every(name => name !== "")}
+            isReady={this.isReadyToStart()}
             isInProgress={this.state.inProgress}
           />
         </div>

@@ -3,12 +3,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ButtonMenu = ({
   inProgress,
+  isReady,
   locked,
   onAddPlayer,
   onRemovePlayer,
   onLock,
   onUnlock,
   onReset,
+  onStart,
 }) => (
   <div>
     {locked ? (
@@ -31,6 +33,11 @@ const ButtonMenu = ({
             &nbsp;
             <button onClick={onRemovePlayer}>
               <FontAwesomeIcon icon="minus" /> remove player
+            </button>
+            &nbsp;
+            <button disabled={!isReady}
+              onClick={onStart}>
+              <FontAwesomeIcon icon="play" /> start
             </button>
             &nbsp;
           </span>

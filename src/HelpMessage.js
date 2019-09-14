@@ -1,13 +1,13 @@
 import React from "react";
 
-const HelpMessage = ({ isNaming, isInProgress }) => {
+const HelpMessage = ({ isReady, isInProgress }) => {
   if (isInProgress) {
-    return;
+    return null;
   }
 
   let helpMessage = "";
 
-  if (isNaming) {
+  if (!isReady) {
     helpMessage = (
       <span>
         enter <span style={{ textDecoration: "underline" }}>unique</span> player
@@ -20,7 +20,7 @@ const HelpMessage = ({ isNaming, isInProgress }) => {
     );
   } else {
     // Ready to start
-    helpMessage = <span>omg ur so ready</span>;
+    helpMessage = <span>click the button above to start</span>;
   }
 
   return (
