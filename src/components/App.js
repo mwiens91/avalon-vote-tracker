@@ -1,15 +1,13 @@
 import React, { Component } from "react";
+import Grid from "./Grid";
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
-        <div className="App">
-          <h1>test</h1>
-        </div>
+      <div className="App">
+        <h1>Avalon vote tracker</h1>
+        <Grid />
+      </div>
     );
   }
 }
