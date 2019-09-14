@@ -20,6 +20,40 @@ const INITIAL_STATE = {
   quests: [[{ missionLeader: 0 }]],
 };
 
+const EditablePlayerName = ({ name, onChange }) => {
+  const [editing, setEditing] = React.useState(false);
+  const handleBodyClick = React.useCallback(() => setEditing(false), [
+    setEditing,
+  ]);
+
+  React.useEffect(() => {
+    document.body.addEventListener("click", handleBodyClick);
+
+    return function cleanup() {
+      document.body.removeEventListener("click", handleBodyClick);
+    };
+  }, [handleBodyClick]);
+
+  return (
+    <span
+      onClick={e => {
+        e.stopPropagation();
+      }}
+    >
+      {editing ? (
+        <input
+          value={name}
+          style={{ width: "8em" }}
+          onChange={e => onChange(e.currentTarget.value)}
+          onKeyPress={e => [13, 27].includes(e.keyCode) && setEditing(false)}
+        />
+      ) : (
+        <span onClick={e => setEditing(true)}>name</span>
+      )}
+    </span>
+  );
+};
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -73,21 +107,15 @@ class App extends Component {
               <button onClick={() => this.setState({ locked: true })}>
                 <FontAwesomeIcon icon="lock" /> lock
               </button>
-
               &nbsp;
-
               <button onClick={this.addPlayer}>
                 <FontAwesomeIcon icon="plus" /> add player
               </button>
-
               &nbsp;
-
               <button onClick={this.removePlayer}>
                 <FontAwesomeIcon icon="minus" /> remove player
               </button>
-
               &nbsp;
-
               <button onClick={() => this.setState(INITIAL_STATE)}>
                 <FontAwesomeIcon icon="redo" /> reset
               </button>
@@ -102,8 +130,13 @@ class App extends Component {
           <thead>
             <tr>
               <th style={{ width: "300px" }}></th>
-              {this.state.players.map(name => (
-                <th style={{ width: "*" }}>{name}</th>
+              {this.state.players.map((name, idx) => (
+                <th key={idx.toString()} style={{ width: "8em" }}>
+                  <EditablePlayerName
+                    name={name}
+                    onChange={v => console.log(v)}
+                  />
+                </th>
               ))}
             </tr>
           </thead>
