@@ -153,10 +153,21 @@ class App extends Component {
             <tr>
               <th style={{ width: "300px" }}></th>
               {this.state.players.map((name, idx) => (
-                <th key={idx.toString()} style={{ width: "8em", height: "2em" }}>
+                <th
+                  key={idx.toString()}
+                  style={{ width: "8em", height: "2em" }}
+                >
                   <EditablePlayerName
                     name={name}
-                    onChange={v => console.log(v)}
+                    onChange={newName =>
+                      this.setState({
+                        players: [
+                          ...this.state.players.slice(0, idx),
+                          newName,
+                          ...this.state.players.slice(idx + 1),
+                        ],
+                      })
+                    }
                   />
                 </th>
               ))}
