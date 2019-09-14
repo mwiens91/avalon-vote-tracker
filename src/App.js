@@ -64,7 +64,7 @@ const INITIAL_STATE = {
       missionNumber: 1,
       selectionNumber: 1,
       state: MISSION_IN_PROGRESS,
-      approves: Array(5).fill(false),
+      approves: Array(5).fill(true),
       onTeam: Array(5).fill(false),
     },
   ],
@@ -239,11 +239,11 @@ class App extends Component {
                             value={
                               this.state.missions[missionIdx].onTeam[playerIdx]
                             }
-                            onChange={val =>
+                            onChange={e =>
                               this.modifyMissionOnTeam(
                                 missionIdx,
                                 playerIdx,
-                                val
+                                e.currentTarget.value
                               )
                             }
                           >
@@ -258,17 +258,15 @@ class App extends Component {
                                 playerIdx
                               ]
                             }
-                            onChange={val =>
+                            onChange={e =>
                               this.modifyMissionApproves(
                                 missionIdx,
                                 playerIdx,
-                                val
+                                e.currentTarget.value
                               )
                             }
                           >
-                            <option selected value={true}>
-                              approve
-                            </option>
+                            <option value={true}>approve</option>
                             <option value={false}>reject</option>
                           </select>
                         </div>
