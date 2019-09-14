@@ -70,17 +70,23 @@ class App extends Component {
             </span>
           ) : (
             <span>
+              <button onClick={() => this.setState({ locked: true })}>
+                <FontAwesomeIcon icon="lock" /> lock
+              </button>
+
+              &nbsp;
+
               <button onClick={this.addPlayer}>
                 <FontAwesomeIcon icon="plus" /> add player
               </button>
+
+              &nbsp;
 
               <button onClick={this.removePlayer}>
                 <FontAwesomeIcon icon="minus" /> remove player
               </button>
 
-              <button onClick={() => this.setState({ locked: true })}>
-                <FontAwesomeIcon icon="lock" /> lock
-              </button>
+              &nbsp;
 
               <button onClick={() => this.setState(INITIAL_STATE)}>
                 <FontAwesomeIcon icon="redo" /> reset
@@ -89,6 +95,7 @@ class App extends Component {
           )}
         </div>
 
+        <br />
         <br />
 
         <table style={{ width: "100%" }}>
