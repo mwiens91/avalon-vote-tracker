@@ -138,7 +138,7 @@ class App extends Component {
           ...this.state.missions[missionIdx],
           onTeam: [
             ...this.state.missions[missionIdx].onTeam.slice(0, playerIdx),
-            val,
+            val === "true" ? true : false,
             ...this.state.missions[missionIdx].onTeam.slice(playerIdx + 1),
           ],
         },
@@ -155,7 +155,7 @@ class App extends Component {
           ...this.state.missions[missionIdx],
           approves: [
             ...this.state.missions[missionIdx].approves.slice(0, playerIdx),
-            val,
+            val === "true" ? true : false,
             ...this.state.missions[missionIdx].approves.slice(playerIdx + 1),
           ],
         },
