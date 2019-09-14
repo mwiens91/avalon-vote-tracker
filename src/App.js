@@ -61,7 +61,9 @@ const EditablePlayerName = ({ name, onChange }) => {
           style={{ width: "5em" }}
           ref={ref}
           onChange={e => onChange(e.currentTarget.value)}
-          onKeyPress={e => ["Enter", "Escape"].includes(e.key) && setEditing(false)}
+          onKeyPress={e =>
+            ["Enter", "Escape"].includes(e.key) && setEditing(false)
+          }
         />
       ) : (
         <span onClick={e => setEditing(true)}>{name}</span>
@@ -144,10 +146,8 @@ class App extends Component {
             )}
           </div>
         </div>
-
         <br />
         <br />
-
         <table>
           <thead>
             <tr>
@@ -188,6 +188,26 @@ class App extends Component {
             </tr>
           </tbody>
         </table>
+
+        <footer
+          style={{
+            position: "absolute",
+            left: "0",
+            bottom: "0",
+            right: "0",
+            paddingBottom: "20px",
+            fontSize: "13px",
+            textAlign: "center",
+          }}
+        >
+          created by{" "}
+          <a
+            href="https://github.com/mwiens91/"
+            style={{ textDecoration: "none", color: "#0000EE" }}
+          >
+            Matt Wiens
+          </a>
+        </footer>
       </div>
     );
   }
