@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useCallback, useEffect, useState } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faLock,
@@ -23,12 +23,10 @@ const INITIAL_STATE = {
 };
 
 const EditablePlayerName = ({ name, onChange }) => {
-  const [editing, setEditing] = React.useState(false);
-  const handleBodyClick = React.useCallback(() => setEditing(false), [
-    setEditing,
-  ]);
+  const [editing, setEditing] = useState(false);
+  const handleBodyClick = useCallback(() => setEditing(false), [setEditing]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     document.body.addEventListener("click", handleBodyClick);
 
     return function cleanup() {
