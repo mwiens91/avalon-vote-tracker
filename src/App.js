@@ -58,7 +58,7 @@ const EditablePlayerName = ({ name, onChange }) => {
       {editing ? (
         <input
           value={name}
-          style={{ width: "8em" }}
+          style={{ width: "5em" }}
           ref={ref}
           onChange={e => onChange(e.currentTarget.value)}
           onKeyPress={e => [13, 27].includes(e.keyCode) && setEditing(false)}
@@ -153,7 +153,7 @@ class App extends Component {
             <tr>
               <th style={{ width: "300px" }}></th>
               {this.state.players.map((name, idx) => (
-                <th key={idx.toString()} style={{ width: "8em" }}>
+                <th key={idx.toString()} style={{ width: "8em", height: "2em" }}>
                   <EditablePlayerName
                     name={name}
                     onChange={v => console.log(v)}
