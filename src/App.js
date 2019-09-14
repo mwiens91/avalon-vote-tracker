@@ -1,10 +1,4 @@
-import React, {
-  Component,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Component } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faLock,
@@ -15,6 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
+import ButtonMenu from "./ButtonMenu";
+import EditablePlayerName from "./EditablePlayerName";
+import Footer from "./Footer";
+import HelpMessage from "./HelpMessage";
 
 // Load Font Awesome icons
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
@@ -40,48 +38,6 @@ const INITIAL_STATE = {
       },
     ],
   ],
-};
-
-const EditablePlayerName = ({ name, onChange }) => {
-  const [editing, setEditing] = useState(false);
-  const ref = useRef(null);
-
-  const handleBodyClick = useCallback(
-    e => {
-      if (ref.current && !ref.current.contains(e.target)) {
-        setEditing(false);
-      }
-    },
-    [setEditing]
-  );
-
-  useEffect(() => {
-    document.body.addEventListener("click", handleBodyClick);
-
-    return function cleanup() {
-      document.body.removeEventListener("click", handleBodyClick);
-    };
-  }, [handleBodyClick]);
-
-  return (
-    <span>
-      {editing ? (
-        <input
-          value={name}
-          style={{ width: "5em" }}
-          ref={ref}
-          onChange={e => onChange(e.currentTarget.value)}
-          onKeyPress={e =>
-            ["Enter", "Escape"].includes(e.key) && setEditing(false)
-          }
-        />
-      ) : (
-        <span onClick={e => setEditing(true)}>
-          {name.length >= 1 ? name : "<enter name>"}
-        </span>
-      )}
-    </span>
-  );
 };
 
 class App extends Component {
@@ -120,60 +76,40 @@ class App extends Component {
     });
   }
 
+  modifyPlayerName(playerIdx, newName) {
+    this.setState({
+      players: [
+        ...this.state.players.slice(0, playerIdx),
+        newName,
+        ...this.state.players.slice(playerIdx + 1),
+      ],
+    });
+  }
+
   render() {
     return (
       <div className="App">
         <div style={{ paddingLeft: "0.69em" }}>
           <h1>Avalon vote tracker</h1>
 
-          <div>
-            {this.state.locked ? (
-              <span>
-                <button onClick={() => this.setState({ locked: false })}>
-                  <FontAwesomeIcon icon="lock-open" /> unlock
-                </button>
-              </span>
-            ) : (
-              <span>
-                <button onClick={() => this.setState({ locked: true })}>
-                  <FontAwesomeIcon icon="lock" /> lock
-                </button>
-                &nbsp;
-                {!this.state.inProgress && (
-                  <span>
-                    <button onClick={this.addPlayer}>
-                      <FontAwesomeIcon icon="plus" /> add player
-                    </button>
-                    &nbsp;
-                    <button onClick={this.removePlayer}>
-                      <FontAwesomeIcon icon="minus" /> remove player
-                    </button>
-                    &nbsp;
-                  </span>
-                )}
-                <button onClick={() => this.setState(INITIAL_STATE)}>
-                  <FontAwesomeIcon icon="redo" /> reset
-                </button>
-              </span>
-            )}
-          </div>
-          {!this.state.players.every(name => name !== "") && (
-            <div
-              style={{
-                paddingTop: "30px",
-                fontSize: "13px",
-              }}
-            >
-              enter <span style={{ textDecoration: "underline" }}>unique</span>{" "}
-              player names{" "}
-              <span style={{ textDecoration: "underline" }}>
-                in the order of mission leader succession
-              </span>{" "}
-              from left to right
-            </div>
-          )}
+          <ButtonMenu
+            inProgress={this.state.inProgress}
+            locked={this.state.locked}
+            onAddPlayer={this.addPlayer}
+            onRemovePlayer={this.removePlayer}
+            onLock={() => this.setState({ locked: true })}
+            onUnlock={() => this.setState({ locked: false })}
+            onReset={() => this.setState(INITIAL_STATE)}
+          />
+
+          <HelpMessage
+            isNaming={!this.state.players.every(name => name !== "")}
+            isInProgress={this.state.inProgress}
+          />
         </div>
+
         <br />
+
         <table>
           <thead>
             <tr>
@@ -185,15 +121,7 @@ class App extends Component {
                 >
                   <EditablePlayerName
                     name={name}
-                    onChange={newName =>
-                      this.setState({
-                        players: [
-                          ...this.state.players.slice(0, idx),
-                          newName,
-                          ...this.state.players.slice(idx + 1),
-                        ],
-                      })
-                    }
+                    onChange={newName => this.modifyPlayerName(idx, newName)}
                   />
                 </th>
               ))}
@@ -215,25 +143,7 @@ class App extends Component {
           </tbody>
         </table>
 
-        <footer
-          style={{
-            position: "absolute",
-            left: "0",
-            bottom: "0",
-            right: "0",
-            paddingBottom: "20px",
-            fontSize: "13px",
-            textAlign: "center",
-          }}
-        >
-          created by{" "}
-          <a
-            href="https://github.com/mwiens91/"
-            style={{ textDecoration: "none", color: "#0000EE" }}
-          >
-            Matt Wiens
-          </a>
-        </footer>
+        <Footer />
       </div>
     );
   }
