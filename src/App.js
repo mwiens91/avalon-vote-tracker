@@ -64,11 +64,7 @@ const EditablePlayerName = ({ name, onChange }) => {
   }, [handleBodyClick]);
 
   return (
-    <span
-      onClick={e => {
-        e.stopPropagation();
-      }}
-    >
+    <span>
       {editing ? (
         <input
           value={name}
