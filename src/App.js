@@ -147,8 +147,22 @@ class App extends Component {
               </span>
             )}
           </div>
+          {!this.state.players.every(name => name !== "") && (
+            <div
+              style={{
+                paddingTop: "30px",
+                fontSize: "13px",
+              }}
+            >
+              enter <span style={{ textDecoration: "underline" }}>unique</span>{" "}
+              player names{" "}
+              <span style={{ textDecoration: "underline" }}>
+                in the order of mission leader succession
+              </span>{" "}
+              from left to right
+            </div>
+          )}
         </div>
-        <br />
         <br />
         <table>
           <thead>
