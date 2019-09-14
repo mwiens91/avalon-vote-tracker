@@ -7,7 +7,6 @@ import {
   faPlus,
   faRedo,
 } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 import ButtonMenu from "./ButtonMenu";
 import EditablePlayerName from "./EditablePlayerName";
@@ -18,9 +17,9 @@ import HelpMessage from "./HelpMessage";
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
 const MISSION_IN_PROGRESS = "in progress";
-const MISSION_REJECTED = "rejected";
-const MISSION_FAILED = "failed";
-const MISSION_SUCCESSFUL = "success";
+// const MISSION_REJECTED = "rejected";
+// const MISSION_FAILED = "failed";
+// const MISSION_SUCCESSFUL = "success";
 
 const INITIAL_STATE = {
   inProgress: false,
