@@ -136,6 +136,40 @@ class App extends Component {
     });
   }
 
+  modifyMissionOnTeam(missionIdx, playerIdx, val) {
+    this.setState({
+      missions: [
+        ...this.state.missions.slice(0, missionIdx),
+        {
+          ...this.state.missions[missionIdx],
+          onTeam: [
+            ...this.state.missions[missionIdx].onTeam.slice(0, playerIdx),
+            val,
+            ...this.state.missions[missionIdx].onTeam.slice(playerIdx + 1),
+          ],
+        },
+        ...this.state.missions.slice(missionIdx + 1),
+      ],
+    });
+  }
+
+  modifyMissionApproves(missionIdx, playerIdx, val) {
+    this.setState({
+      missions: [
+        ...this.state.missions.slice(0, missionIdx),
+        {
+          ...this.state.missions[missionIdx],
+          approves: [
+            ...this.state.missions[missionIdx].approves.slice(0, playerIdx),
+            val,
+            ...this.state.missions[missionIdx].approves.slice(playerIdx + 1),
+          ],
+        },
+        ...this.state.missions.slice(missionIdx + 1),
+      ],
+    });
+  }
+
   isReadyToStart() {
     return this.state.players.every(name => name !== "");
   }
@@ -184,7 +218,7 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.missions.map(mission => (
+            {this.state.missions.map((mission, missionIdx) => (
               <tr style={{ backgroundColor: getTableRowColor(mission.state) }}>
                 <td>
                   <div style={{ fontWeight: "bold" }}>
@@ -196,19 +230,47 @@ class App extends Component {
                     {this.state.players[mission.leader]}
                   </div>
                 </td>
-                {this.state.players.map(_ => (
+                {this.state.players.map((_, playerIdx) => (
                   <td style={{ textAlign: "center" }}>
                     {mission.state === MISSION_IN_PROGRESS ? (
                       <span>
                         <div style={{ paddingBottom: "10px" }}>
-                          <FontAwesomeIcon icon="user" />
-                          &nbsp;
-                          <FontAwesomeIcon icon="user-slash" />
+                          <select
+                            value={
+                              this.state.missions[missionIdx].onTeam[playerIdx]
+                            }
+                            onChange={val =>
+                              this.modifyMissionOnTeam(
+                                missionIdx,
+                                playerIdx,
+                                val
+                              )
+                            }
+                          >
+                            <option value={false}>off mission</option>
+                            <option value={true}>on mission</option>
+                          </select>
                         </div>
                         <div>
-                          <FontAwesomeIcon icon="check" />
-                          &nbsp;
-                          <FontAwesomeIcon icon="times" />
+                          <select
+                            value={
+                              this.state.missions[missionIdx].approves[
+                                playerIdx
+                              ]
+                            }
+                            onChange={val =>
+                              this.modifyMissionApproves(
+                                missionIdx,
+                                playerIdx,
+                                val
+                              )
+                            }
+                          >
+                            <option selected value={true}>
+                              approve
+                            </option>
+                            <option value={false}>reject</option>
+                          </select>
                         </div>
                       </span>
                     ) : (
