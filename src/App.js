@@ -15,12 +15,12 @@ class App extends Component {
       <div className="App">
         <h1>Avalon vote tracker</h1>
 
-        <table>
+        <table style={{ width: "100%" }}>
           <thead>
             <tr>
-              <th></th>
+              <th style={{ width: "300px" }}></th>
               {this.state.players.map(name => (
-                <th>{name}</th>
+                <th style={{ width: "*" }}>{name}</th>
               ))}
             </tr>
           </thead>
@@ -28,7 +28,7 @@ class App extends Component {
             <tr>
               <td>useful text here</td>
               {this.state.players.map(_ => (
-                <th>hey</th>
+                <td style={{ textAlign: "center" }}>hey</td>
               ))}
             </tr>
           </tbody>
