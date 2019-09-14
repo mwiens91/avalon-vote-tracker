@@ -11,6 +11,7 @@ import {
   faRedo,
   faTimes,
   faUser,
+  faUserSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
@@ -197,12 +198,29 @@ class App extends Component {
                 </td>
                 {this.state.players.map(_ => (
                   <td style={{ textAlign: "center" }}>
-                    <div style={{ paddingBottom: "10px" }}>
-                      <FontAwesomeIcon icon="user" />
-                    </div>
-                    <div>
-                      <FontAwesomeIcon icon="check" />
-                    </div>
+                    {mission.state === MISSION_IN_PROGRESS ? (
+                      <span>
+                        <div style={{ paddingBottom: "10px" }}>
+                          <FontAwesomeIcon icon="user" />
+                          &nbsp;
+                          <FontAwesomeIcon icon="user-slash" />
+                        </div>
+                        <div>
+                          <FontAwesomeIcon icon="check" />
+                          &nbsp;
+                          <FontAwesomeIcon icon="times" />
+                        </div>
+                      </span>
+                    ) : (
+                      <span>
+                        <div style={{ paddingBottom: "10px" }}>
+                          <FontAwesomeIcon icon="user-slash" />
+                        </div>
+                        <div>
+                          <FontAwesomeIcon icon="check" />
+                        </div>
+                      </span>
+                    )}
                   </td>
                 ))}
               </tr>
