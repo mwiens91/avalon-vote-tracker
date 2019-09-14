@@ -14,6 +14,7 @@ import "./App.css";
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
 const INITIAL_STATE = {
+  inProgress: false,
   locked: false,
   numPlayers: 5,
   players: ["player1", "player2", "player3", "player4", "player5"],
@@ -94,7 +95,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div style={{paddingLeft: "0.69em"}}>
+        <div style={{ paddingLeft: "0.69em" }}>
           <h1>Avalon vote tracker</h1>
 
           <div>
@@ -110,14 +111,18 @@ class App extends Component {
                   <FontAwesomeIcon icon="lock" /> lock
                 </button>
                 &nbsp;
-                <button onClick={this.addPlayer}>
-                  <FontAwesomeIcon icon="plus" /> add player
-                </button>
-                &nbsp;
-                <button onClick={this.removePlayer}>
-                  <FontAwesomeIcon icon="minus" /> remove player
-                </button>
-                &nbsp;
+                {!this.state.inProgress && (
+                  <span>
+                    <button onClick={this.addPlayer}>
+                      <FontAwesomeIcon icon="plus" /> add player
+                    </button>
+                    &nbsp;
+                    <button onClick={this.removePlayer}>
+                      <FontAwesomeIcon icon="minus" /> remove player
+                    </button>
+                    &nbsp;
+                  </span>
+                )}
                 <button onClick={() => this.setState(INITIAL_STATE)}>
                   <FontAwesomeIcon icon="redo" /> reset
                 </button>
