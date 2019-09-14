@@ -38,7 +38,7 @@ library.add(
 const MISSION_IN_PROGRESS = "in progress";
 const MISSION_REJECTED = "rejected";
 const MISSION_FAILED = "failed";
-const MISSION_SUCCESSFUL = "success";
+const MISSION_SUCCESSFUL = "successful";
 
 const getTableRowColor = missionState => {
   if (missionState === MISSION_REJECTED) {
@@ -164,7 +164,20 @@ class App extends Component {
     });
   }
 
-  addNewMission() {
+  modifyMissionState(missionIdx, val, callback = null) {
+    this.setState({
+      missions: [
+        ...this.state.missions.slice(0, missionIdx),
+        {
+          ...this.state.missions[missionIdx],
+          state: val,
+        },
+        ...this.state.missions.slice(missionIdx + 1),
+      ],
+    }, callback);
+  }
+
+  addMission() {
     let previousMission = this.state.missions[this.state.missions.length - 1];
 
     // We should never be here if the previous mission is still in
@@ -284,6 +297,31 @@ class App extends Component {
                   <div>
                     <FontAwesomeIcon icon="crown" />{" "}
                     {this.state.players[mission.leader]}
+                  </div>
+                  <br />
+                  <div>
+                    <select
+                      disabled={!this.state.inProgress}
+                      value={this.state.missions[missionIdx].state}
+                      onChange={e => {
+                        this.modifyMissionState(
+                          missionIdx,
+                          e.currentTarget.value,
+                          this.addMission,
+                        );
+                      }}
+                    >
+                      <option value={MISSION_IN_PROGRESS}>
+                        {MISSION_IN_PROGRESS}
+                      </option>
+                      <option value={MISSION_REJECTED}>
+                        {MISSION_REJECTED}
+                      </option>
+                      <option value={MISSION_FAILED}>{MISSION_FAILED}</option>
+                      <option value={MISSION_SUCCESSFUL}>
+                        {MISSION_SUCCESSFUL}
+                      </option>
+                    </select>
                   </div>
                 </td>
                 {this.state.players.map((_, playerIdx) => (
