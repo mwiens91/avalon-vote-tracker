@@ -94,34 +94,36 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Avalon vote tracker</h1>
+        <div style={{paddingLeft: "0.69em"}}>
+          <h1>Avalon vote tracker</h1>
 
-        <div>
-          {this.state.locked ? (
-            <span>
-              <button onClick={() => this.setState({ locked: false })}>
-                <FontAwesomeIcon icon="lock-open" /> unlock
-              </button>
-            </span>
-          ) : (
-            <span>
-              <button onClick={() => this.setState({ locked: true })}>
-                <FontAwesomeIcon icon="lock" /> lock
-              </button>
-              &nbsp;
-              <button onClick={this.addPlayer}>
-                <FontAwesomeIcon icon="plus" /> add player
-              </button>
-              &nbsp;
-              <button onClick={this.removePlayer}>
-                <FontAwesomeIcon icon="minus" /> remove player
-              </button>
-              &nbsp;
-              <button onClick={() => this.setState(INITIAL_STATE)}>
-                <FontAwesomeIcon icon="redo" /> reset
-              </button>
-            </span>
-          )}
+          <div>
+            {this.state.locked ? (
+              <span>
+                <button onClick={() => this.setState({ locked: false })}>
+                  <FontAwesomeIcon icon="lock-open" /> unlock
+                </button>
+              </span>
+            ) : (
+              <span>
+                <button onClick={() => this.setState({ locked: true })}>
+                  <FontAwesomeIcon icon="lock" /> lock
+                </button>
+                &nbsp;
+                <button onClick={this.addPlayer}>
+                  <FontAwesomeIcon icon="plus" /> add player
+                </button>
+                &nbsp;
+                <button onClick={this.removePlayer}>
+                  <FontAwesomeIcon icon="minus" /> remove player
+                </button>
+                &nbsp;
+                <button onClick={() => this.setState(INITIAL_STATE)}>
+                  <FontAwesomeIcon icon="redo" /> reset
+                </button>
+              </span>
+            )}
+          </div>
         </div>
 
         <br />
