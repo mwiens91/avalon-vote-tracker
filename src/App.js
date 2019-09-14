@@ -23,7 +23,7 @@ const INITIAL_STATE = {
   inProgress: false,
   locked: false,
   numPlayers: 5,
-  players: ["player1", "player2", "player3", "player4", "player5"],
+  players: ["", "", "", "", ""],
   playersLocked: false,
   quests: [[{ missionLeader: 0 }]],
 };
