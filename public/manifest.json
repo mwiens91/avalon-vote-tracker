@@ -1,0 +1,8 @@
+{
+  "short_name": "avalon-vote-tracker",
+  "name": "Avalon vote tracker",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
