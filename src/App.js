@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faCrown,
   faLock,
   faLockOpen,
   faMinus,
@@ -8,6 +9,7 @@ import {
   faPlus,
   faRedo,
 } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
 import ButtonMenu from "./ButtonMenu";
 import EditablePlayerName from "./EditablePlayerName";
@@ -15,7 +17,7 @@ import Footer from "./Footer";
 import HelpMessage from "./HelpMessage";
 
 // Load Font Awesome icons
-library.add(faLock, faLockOpen, faMinus, faPlay, faPlus, faRedo);
+library.add(faCrown, faLock, faLockOpen, faMinus, faPlay, faPlus, faRedo);
 
 const MISSION_IN_PROGRESS = "in progress";
 // const MISSION_REJECTED = "rejected";
@@ -28,15 +30,13 @@ const INITIAL_STATE = {
   numPlayers: 5,
   players: ["", "", "", "", ""],
   playersLocked: false,
-  quests: [
-    [
-      {
-        missionLeader: 0,
-        missionNumber: 1,
-        missionSelectionNumber: 1,
-        status: MISSION_IN_PROGRESS,
-      },
-    ],
+  missions: [
+    {
+      leader: 0,
+      missionNumber: 1,
+      selectionNumber: 1,
+      status: MISSION_IN_PROGRESS,
+    },
   ],
 };
 
@@ -119,7 +119,7 @@ class App extends Component {
         <table>
           <thead>
             <tr>
-              <th style={{ width: "300px" }}></th>
+              <th style={{ width: "250px" }}></th>
               {this.state.players.map((name, idx) => (
                 <th
                   key={idx.toString()}
@@ -134,18 +134,23 @@ class App extends Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>useful text here</td>
-              {this.state.players.map(_ => (
-                <td style={{ textAlign: "center" }}>hey</td>
-              ))}
-            </tr>
-            <tr>
-              <td>useful text here</td>
-              {this.state.players.map(_ => (
-                <td style={{ textAlign: "center" }}>hey</td>
-              ))}
-            </tr>
+            {this.state.missions.map(mission => (
+              <tr>
+                <td>
+                  <div style={{ fontWeight: "bold" }}>
+                    mission {mission.missionNumber} > selection{" "}
+                    {mission.selectionNumber}
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon="crown" />{" "}
+                    {this.state.players[mission.leader]}
+                  </div>
+                </td>
+                {this.state.players.map(_ => (
+                  <td style={{ textAlign: "center" }}>hey</td>
+                ))}
+              </tr>
+            ))}
           </tbody>
         </table>
 
