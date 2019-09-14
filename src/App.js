@@ -19,13 +19,27 @@ import "./App.css";
 // Load Font Awesome icons
 library.add(faLock, faLockOpen, faMinus, faPlus, faRedo);
 
+const MISSION_IN_PROGRESS = "in progress";
+const MISSION_REJECTED = "rejected";
+const MISSION_FAILED = "failed";
+const MISSION_SUCCESSFUL = "success";
+
 const INITIAL_STATE = {
   inProgress: false,
   locked: false,
   numPlayers: 5,
   players: ["", "", "", "", ""],
   playersLocked: false,
-  quests: [[{ missionLeader: 0 }]],
+  quests: [
+    [
+      {
+        missionLeader: 0,
+        missionNumber: 1,
+        missionSelectionNumber: 1,
+        status: MISSION_IN_PROGRESS,
+      },
+    ],
+  ],
 };
 
 const EditablePlayerName = ({ name, onChange }) => {
