@@ -165,16 +165,19 @@ class App extends Component {
   }
 
   modifyMissionState(missionIdx, val, callback = null) {
-    this.setState({
-      missions: [
-        ...this.state.missions.slice(0, missionIdx),
-        {
-          ...this.state.missions[missionIdx],
-          state: val,
-        },
-        ...this.state.missions.slice(missionIdx + 1),
-      ],
-    }, callback);
+    this.setState(
+      {
+        missions: [
+          ...this.state.missions.slice(0, missionIdx),
+          {
+            ...this.state.missions[missionIdx],
+            state: val,
+          },
+          ...this.state.missions.slice(missionIdx + 1),
+        ],
+      },
+      callback
+    );
   }
 
   addMission() {
@@ -307,7 +310,7 @@ class App extends Component {
                         this.modifyMissionState(
                           missionIdx,
                           e.currentTarget.value,
-                          this.addMission,
+                          this.addMission
                         );
                       }}
                     >
@@ -368,10 +371,20 @@ class App extends Component {
                     ) : (
                       <span>
                         <div style={{ paddingBottom: "10px" }}>
-                          <FontAwesomeIcon icon="user-slash" />
+                          {this.state.missions[missionIdx].onTeam[playerIdx] ? (
+                            <FontAwesomeIcon icon="user" />
+                          ) : (
+                            <FontAwesomeIcon icon="user-slash" />
+                          )}
                         </div>
                         <div>
-                          <FontAwesomeIcon icon="check" />
+                          {this.state.missions[missionIdx].approves[
+                            playerIdx
+                          ] ? (
+                            <FontAwesomeIcon icon="check" />
+                          ) : (
+                            <FontAwesomeIcon icon="times" />
+                          )}
                         </div>
                       </span>
                     )}
