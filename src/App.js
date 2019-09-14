@@ -61,7 +61,7 @@ const EditablePlayerName = ({ name, onChange }) => {
           style={{ width: "5em" }}
           ref={ref}
           onChange={e => onChange(e.currentTarget.value)}
-          onKeyPress={e => [13, 27].includes(e.keyCode) && setEditing(false)}
+          onKeyPress={e => ["Enter", "Escape"].includes(e.key) && setEditing(false)}
         />
       ) : (
         <span onClick={e => setEditing(true)}>{name}</span>
