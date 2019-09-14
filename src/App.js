@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
+  faCheck,
   faCrown,
   faLock,
   faLockOpen,
@@ -8,6 +9,8 @@ import {
   faPlay,
   faPlus,
   faRedo,
+  faTimes,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./App.css";
@@ -17,7 +20,18 @@ import Footer from "./Footer";
 import HelpMessage from "./HelpMessage";
 
 // Load Font Awesome icons
-library.add(faCrown, faLock, faLockOpen, faMinus, faPlay, faPlus, faRedo);
+library.add(
+  faCheck,
+  faCrown,
+  faLock,
+  faLockOpen,
+  faMinus,
+  faPlay,
+  faPlus,
+  faRedo,
+  faTimes,
+  faUser
+);
 
 const MISSION_IN_PROGRESS = "in progress";
 // const MISSION_REJECTED = "rejected";
@@ -36,6 +50,8 @@ const INITIAL_STATE = {
       missionNumber: 1,
       selectionNumber: 1,
       status: MISSION_IN_PROGRESS,
+      approves: Array(5).fill(false),
+      onTeam: Array(5).fill(false),
     },
   ],
 };
@@ -61,6 +77,16 @@ class App extends Component {
     this.setState({
       numPlayers: this.state.numPlayers + 1,
       players: [...this.state.players, ""],
+      missions: [
+        {
+          leader: 0,
+          missionNumber: 1,
+          selectionNumber: 1,
+          status: MISSION_IN_PROGRESS,
+          approves: Array(this.state.numPlayers + 1).fill(false),
+          onTeam: Array(this.state.numPlayers + 1).fill(false),
+        },
+      ],
     });
   }
 
@@ -73,6 +99,16 @@ class App extends Component {
     this.setState({
       numPlayers: this.state.numPlayers - 1,
       players: this.state.players.slice(0, this.state.numPlayers - 1),
+      missions: [
+        {
+          leader: 0,
+          missionNumber: 1,
+          selectionNumber: 1,
+          status: MISSION_IN_PROGRESS,
+          approves: Array(this.state.numPlayers - 1).fill(false),
+          onTeam: Array(this.state.numPlayers - 1).fill(false),
+        },
+      ],
     });
   }
 
@@ -147,7 +183,14 @@ class App extends Component {
                   </div>
                 </td>
                 {this.state.players.map(_ => (
-                  <td style={{ textAlign: "center" }}>hey</td>
+                  <td style={{ textAlign: "center" }}>
+                    <div style={{ paddingBottom: "10px" }}>
+                      <FontAwesomeIcon icon="user" />
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon="check" />
+                    </div>
+                  </td>
                 ))}
               </tr>
             ))}
