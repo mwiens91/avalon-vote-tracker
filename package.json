@@ -1,7 +1,7 @@
 {
   "name": "avalon-vote-tracker",
   "version": "0.0.0",
-  "homepage": "https://github.com/mwiens91/avalon-vote-tracker",
+  "homepage": "https://mwiens91.github.io/avalon-vote-tracker/",
   "license": "BSD-3-Clause",
   "private": true,
   "dependencies": {
