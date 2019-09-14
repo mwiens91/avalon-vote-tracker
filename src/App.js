@@ -30,13 +30,26 @@ library.add(
   faPlus,
   faRedo,
   faTimes,
-  faUser
+  faUser,
+  faUserSlash
 );
 
 const MISSION_IN_PROGRESS = "in progress";
-// const MISSION_REJECTED = "rejected";
-// const MISSION_FAILED = "failed";
-// const MISSION_SUCCESSFUL = "success";
+const MISSION_REJECTED = "rejected";
+const MISSION_FAILED = "failed";
+const MISSION_SUCCESSFUL = "success";
+
+const getTableRowColor = missionState => {
+  if (missionState === MISSION_REJECTED) {
+    return "#ededed";
+  } else if (missionState === MISSION_FAILED) {
+    return "#ffd6d6";
+  } else if (missionState === MISSION_SUCCESSFUL) {
+    return "#c2ffd0";
+  }
+
+  return "#ffffff";
+};
 
 const INITIAL_STATE = {
   inProgress: false,
@@ -49,7 +62,7 @@ const INITIAL_STATE = {
       leader: 0,
       missionNumber: 1,
       selectionNumber: 1,
-      status: MISSION_IN_PROGRESS,
+      state: MISSION_IN_PROGRESS,
       approves: Array(5).fill(false),
       onTeam: Array(5).fill(false),
     },
@@ -82,7 +95,7 @@ class App extends Component {
           leader: 0,
           missionNumber: 1,
           selectionNumber: 1,
-          status: MISSION_IN_PROGRESS,
+          state: MISSION_IN_PROGRESS,
           approves: Array(this.state.numPlayers + 1).fill(false),
           onTeam: Array(this.state.numPlayers + 1).fill(false),
         },
@@ -104,7 +117,7 @@ class App extends Component {
           leader: 0,
           missionNumber: 1,
           selectionNumber: 1,
-          status: MISSION_IN_PROGRESS,
+          state: MISSION_IN_PROGRESS,
           approves: Array(this.state.numPlayers - 1).fill(false),
           onTeam: Array(this.state.numPlayers - 1).fill(false),
         },
@@ -171,7 +184,7 @@ class App extends Component {
           </thead>
           <tbody>
             {this.state.missions.map(mission => (
-              <tr>
+              <tr style={{ backgroundColor: getTableRowColor(mission.state) }}>
                 <td>
                   <div style={{ fontWeight: "bold" }}>
                     mission {mission.missionNumber} > selection{" "}
