@@ -90,20 +90,17 @@ class App extends Component {
       return;
     }
 
-    this.setState(
-      {
-        numPlayers: this.state.numPlayers + 1,
-        players: [...this.state.players, ""],
-        missions: [
-          {
-            ...INITIAL_MISSION_STATE,
-            approves: Array(this.state.numPlayers + 1).fill(true),
-            onTeam: Array(this.state.numPlayers + 1).fill(false),
-          },
-        ],
-      },
-      () => console.log(this.state)
-    );
+    this.setState({
+      numPlayers: this.state.numPlayers + 1,
+      players: [...this.state.players, ""],
+      missions: [
+        {
+          ...INITIAL_MISSION_STATE,
+          approves: Array(this.state.numPlayers + 1).fill(true),
+          onTeam: Array(this.state.numPlayers + 1).fill(false),
+        },
+      ],
+    });
   }
 
   removePlayer() {
@@ -252,7 +249,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="App">
         <div style={{ padding: "0 0.69em" }}>
