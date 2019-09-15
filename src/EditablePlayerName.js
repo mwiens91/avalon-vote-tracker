@@ -14,12 +14,16 @@ const EditablePlayerName = ({ name, onChange }) => {
   );
 
   useEffect(() => {
+    if (!editing) {
+      return;
+    }
+
     document.addEventListener("click", handleRootClick);
 
     return function cleanup() {
       document.removeEventListener("click", handleRootClick);
     };
-  }, [handleRootClick]);
+  }, [handleRootClick, editing]);
 
   if (editing) {
     return (
