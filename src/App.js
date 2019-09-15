@@ -281,7 +281,7 @@ class App extends Component {
         <table>
           <thead>
             <tr>
-              <th style={{ width: "250px" }}></th>
+              <th style={{ height: "4em", width: "250px" }}></th>
               {this.state.players.map((name, idx) => (
                 <th
                   key={idx.toString()}
