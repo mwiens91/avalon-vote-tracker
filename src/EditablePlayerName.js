@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 const EditablePlayerName = ({ name, onChange }) => {
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
+  const originalNameRef = useRef("");
 
   const handleRootClick = useCallback(
     e => {
@@ -27,9 +28,10 @@ const EditablePlayerName = ({ name, onChange }) => {
 
   useEffect(() => {
     if (editing) {
+      originalNameRef.current = name;
       ref.current.focus();
     }
-  }, [editing]);
+  }, [editing]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (editing) {
     return (
@@ -39,9 +41,14 @@ const EditablePlayerName = ({ name, onChange }) => {
         value={name}
         ref={ref}
         onChange={e => onChange(e.currentTarget.value)}
-        onKeyDown={e =>
-          ["Enter", "Escape"].includes(e.key) && setEditing(false)
-        }
+        onKeyDown={e => {
+          if (["Enter", "Escape"].includes(e.key)) {
+            if (e.key === "Escape") {
+              onChange(originalNameRef.current);
+            }
+            setEditing(false);
+          }
+        }}
       />
     );
   }
