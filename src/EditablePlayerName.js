@@ -4,7 +4,7 @@ const EditablePlayerName = ({ name, onChange }) => {
   const [editing, setEditing] = useState(false);
   const ref = useRef(null);
 
-  const handleBodyClick = useCallback(
+  const handleRootClick = useCallback(
     e => {
       if (ref.current && !ref.current.contains(e.target)) {
         setEditing(false);
@@ -14,12 +14,12 @@ const EditablePlayerName = ({ name, onChange }) => {
   );
 
   useEffect(() => {
-    document.body.addEventListener("click", handleBodyClick);
+    document.addEventListener("click", handleRootClick);
 
     return function cleanup() {
-      document.body.removeEventListener("click", handleBodyClick);
+      document.removeEventListener("click", handleRootClick);
     };
-  }, [handleBodyClick]);
+  }, [handleRootClick]);
 
   return (
     <span style={{ textAlign: "center" }}>
