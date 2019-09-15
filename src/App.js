@@ -49,7 +49,7 @@ const getTableRowColor = missionState => {
     return "#c2ffd0";
   }
 
-  return "#ffffff";
+  return "#deecf7";
 };
 
 const INITIAL_MISSION_STATE = {
