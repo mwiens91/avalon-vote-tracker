@@ -307,32 +307,38 @@ class App extends Component {
                     <FontAwesomeIcon icon="crown" />{" "}
                     {this.state.players[mission.leader]}
                   </div>
-                  <br />
+                  <div style={{ height: "1em" }}></div>
                   <div>
-                    <select
-                      className="form-select"
-                      style={{ maxWidth: "150px" }}
-                      disabled={!this.state.inProgress}
-                      value={this.state.missions[missionIdx].state}
-                      onChange={e => {
-                        this.modifyMissionState(
-                          missionIdx,
-                          e.currentTarget.value,
-                          this.addMission
-                        );
-                      }}
-                    >
-                      <option value={MISSION_IN_PROGRESS}>
-                        {MISSION_IN_PROGRESS}
-                      </option>
-                      <option value={MISSION_REJECTED}>
-                        {MISSION_REJECTED}
-                      </option>
-                      <option value={MISSION_FAILED}>{MISSION_FAILED}</option>
-                      <option value={MISSION_SUCCESSFUL}>
-                        {MISSION_SUCCESSFUL}
-                      </option>
-                    </select>
+                    {mission.state === MISSION_IN_PROGRESS ? (
+                      <select
+                        className="form-select"
+                        style={{ maxWidth: "150px" }}
+                        disabled={!this.state.inProgress}
+                        value={this.state.missions[missionIdx].state}
+                        onChange={e => {
+                          this.modifyMissionState(
+                            missionIdx,
+                            e.currentTarget.value,
+                            this.addMission
+                          );
+                        }}
+                      >
+                        <option value={MISSION_IN_PROGRESS}>
+                          {MISSION_IN_PROGRESS}
+                        </option>
+                        <option value={MISSION_REJECTED}>
+                          {MISSION_REJECTED}
+                        </option>
+                        <option value={MISSION_FAILED}>{MISSION_FAILED}</option>
+                        <option value={MISSION_SUCCESSFUL}>
+                          {MISSION_SUCCESSFUL}
+                        </option>
+                      </select>
+                    ) : (
+                      <span style={{ fontWeight: "bold" }}>
+                        {mission.state}
+                      </span>
+                    )}
                   </div>
                 </td>
                 {this.state.players.map((_, playerIdx) => (
@@ -359,8 +365,8 @@ class App extends Component {
                               )
                             }
                           >
-                            <option value={false}>off mission</option>
                             <option value={true}>on mission</option>
+                            <option value={false}>off mission</option>
                           </select>
                         </div>
                         <div style={{ maxWidth: "150px", margin: "auto" }}>
