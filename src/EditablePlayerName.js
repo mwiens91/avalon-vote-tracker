@@ -39,7 +39,7 @@ const EditablePlayerName = ({ name, onChange }) => {
         value={name}
         ref={ref}
         onChange={e => onChange(e.currentTarget.value)}
-        onKeyPress={e =>
+        onKeyDown={e =>
           ["Enter", "Escape"].includes(e.key) && setEditing(false)
         }
       />
