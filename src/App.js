@@ -56,7 +56,7 @@ const INITIAL_MISSION_STATE = {
   inProgress: false,
   locked: false,
   numPlayers: 5,
-  players: ["", "", "", "", ""],
+  players: Array(5).fill(""),
   playersLocked: false,
   missions: [
     {
