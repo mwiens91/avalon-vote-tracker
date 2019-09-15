@@ -53,21 +53,21 @@ const getTableRowColor = missionState => {
 };
 
 const INITIAL_MISSION_STATE = {
+  leader: 0,
+  missionNumber: 1,
+  selectionNumber: 1,
+  state: MISSION_IN_PROGRESS,
+  approves: Array(5).fill(true),
+  onTeam: Array(5).fill(false),
+};
+
+const INITIAL_STATE = {
   inProgress: false,
   locked: false,
   numPlayers: 5,
   players: Array(5).fill(""),
   playersLocked: false,
-  missions: [
-    {
-      leader: 0,
-      missionNumber: 1,
-      selectionNumber: 1,
-      state: MISSION_IN_PROGRESS,
-      approves: Array(5).fill(true),
-      onTeam: Array(5).fill(false),
-    },
-  ],
+  missions: [INITIAL_MISSION_STATE],
 };
 
 class App extends Component {
@@ -76,7 +76,7 @@ class App extends Component {
 
     this.minPlayers = 5;
     this.maxPlayers = 10;
-    this.state = INITIAL_MISSION_STATE;
+    this.state = INITIAL_STATE;
 
     this.addPlayer = this.addPlayer.bind(this);
     this.removePlayer = this.removePlayer.bind(this);
@@ -88,17 +88,20 @@ class App extends Component {
       return;
     }
 
-    this.setState({
-      numPlayers: this.state.numPlayers + 1,
-      players: [...this.state.players, ""],
-      missions: [
-        {
-          ...INITIAL_MISSION_STATE,
-          approves: Array(this.state.numPlayers + 1).fill(true),
-          onTeam: Array(this.state.numPlayers + 1).fill(false),
-        },
-      ],
-    });
+    this.setState(
+      {
+        numPlayers: this.state.numPlayers + 1,
+        players: [...this.state.players, ""],
+        missions: [
+          {
+            ...INITIAL_MISSION_STATE,
+            approves: Array(this.state.numPlayers + 1).fill(true),
+            onTeam: Array(this.state.numPlayers + 1).fill(false),
+          },
+        ],
+      },
+      () => console.log(this.state)
+    );
   }
 
   removePlayer() {
@@ -247,6 +250,7 @@ class App extends Component {
   }
 
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <div style={{ paddingLeft: "0.69em" }}>
@@ -260,7 +264,7 @@ class App extends Component {
             onRemovePlayer={this.removePlayer}
             onLock={() => this.setState({ locked: true })}
             onUnlock={() => this.setState({ locked: false })}
-            onReset={() => this.setState(INITIAL_MISSION_STATE)}
+            onReset={() => this.setState(INITIAL_STATE)}
             onStart={() => this.setState({ inProgress: true })}
           />
 
