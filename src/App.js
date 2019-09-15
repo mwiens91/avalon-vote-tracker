@@ -297,7 +297,10 @@ class App extends Component {
           </thead>
           <tbody>
             {this.state.missions.map((mission, missionIdx) => (
-              <tr style={{ backgroundColor: getTableRowColor(mission.state) }}>
+              <tr
+                key={missionIdx.toString()}
+                style={{ backgroundColor: getTableRowColor(mission.state) }}
+              >
                 <td>
                   <div style={{ fontWeight: "bold" }}>
                     mission {mission.missionNumber} > selection{" "}
@@ -343,7 +346,10 @@ class App extends Component {
                   </div>
                 </td>
                 {this.state.players.map((_, playerIdx) => (
-                  <td style={{ textAlign: "center" }}>
+                  <td
+                    key={playerIdx.toString() + missionIdx.toString()}
+                    style={{ textAlign: "center" }}
+                  >
                     {mission.state === MISSION_IN_PROGRESS ? (
                       <span>
                         <div
