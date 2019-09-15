@@ -35,7 +35,7 @@ const ButtonMenu = ({
               <FontAwesomeIcon icon="minus" /> remove player
             </button>
             &nbsp;
-            <button className="btn" onClick={onStart}>
+            <button className="btn" disabled={!isReady} onClick={onStart}>
               <FontAwesomeIcon icon="play" /> start
             </button>
             &nbsp;
