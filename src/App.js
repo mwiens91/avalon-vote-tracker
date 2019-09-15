@@ -253,8 +253,10 @@ class App extends Component {
     console.log(this.state);
     return (
       <div className="App">
-        <div style={{ paddingLeft: "0.69em" }}>
-          <h1>Avalon vote tracker</h1>
+        <div style={{ padding: "0 0.69em" }}>
+          <h1 style={{ fontSize: "53px", marginTop: "0.6em" }}>
+            Avalon vote tracker
+          </h1>
 
           <ButtonMenu
             inProgress={this.state.inProgress}
@@ -308,6 +310,8 @@ class App extends Component {
                   <br />
                   <div>
                     <select
+                      className="form-select"
+                      style={{ maxWidth: "150px" }}
                       disabled={!this.state.inProgress}
                       value={this.state.missions[missionIdx].state}
                       onChange={e => {
@@ -335,8 +339,15 @@ class App extends Component {
                   <td style={{ textAlign: "center" }}>
                     {mission.state === MISSION_IN_PROGRESS ? (
                       <span>
-                        <div style={{ paddingBottom: "10px" }}>
+                        <div
+                          style={{
+                            maxWidth: "150px",
+                            margin: "auto",
+                            paddingBottom: "10px",
+                          }}
+                        >
                           <select
+                            className="form-select"
                             value={
                               this.state.missions[missionIdx].onTeam[playerIdx]
                             }
@@ -352,8 +363,9 @@ class App extends Component {
                             <option value={true}>on mission</option>
                           </select>
                         </div>
-                        <div>
+                        <div style={{ maxWidth: "150px", margin: "auto" }}>
                           <select
+                            className="form-select"
                             value={
                               this.state.missions[missionIdx].approves[
                                 playerIdx
@@ -374,12 +386,12 @@ class App extends Component {
                       </span>
                     ) : (
                       <span>
-                        <div style={{ paddingBottom: "10px" }}>
+                        <div style={{ height: "2em" }}>
                           {this.state.missions[missionIdx].onTeam[
                             playerIdx
                           ] && <FontAwesomeIcon icon="user" />}
                         </div>
-                        <div>
+                        <div style={{ height: "2em" }}>
                           {this.state.missions[missionIdx].approves[
                             playerIdx
                           ] ? (

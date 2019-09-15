@@ -22,11 +22,12 @@ const EditablePlayerName = ({ name, onChange }) => {
   }, [handleBodyClick]);
 
   return (
-    <span>
+    <span style={{ textAlign: "center" }}>
       {editing ? (
         <input
+          className="form-input"
+          style={{ maxWidth: "150px", margin: "auto" }}
           value={name}
-          style={{ width: "5em" }}
           ref={ref}
           onChange={e => onChange(e.currentTarget.value)}
           onKeyPress={e =>

@@ -15,34 +15,33 @@ const ButtonMenu = ({
   <div>
     {locked ? (
       <span>
-        <button onClick={onUnlock}>
+        <button className="btn" onClick={onUnlock}>
           <FontAwesomeIcon icon="lock-open" /> unlock
         </button>
       </span>
     ) : (
       <span>
-        <button onClick={onLock}>
+        <button className="btn" onClick={onLock}>
           <FontAwesomeIcon icon="lock" /> lock
         </button>
         &nbsp;
         {!inProgress && (
           <span>
-            <button onClick={onAddPlayer}>
+            <button className="btn" onClick={onAddPlayer}>
               <FontAwesomeIcon icon="plus" /> add player
             </button>
             &nbsp;
-            <button onClick={onRemovePlayer}>
+            <button className="btn" onClick={onRemovePlayer}>
               <FontAwesomeIcon icon="minus" /> remove player
             </button>
             &nbsp;
-            <button disabled={!isReady}
-              onClick={onStart}>
+            <button className="btn" onClick={onStart}>
               <FontAwesomeIcon icon="play" /> start
             </button>
             &nbsp;
           </span>
         )}
-        <button onClick={onReset}>
+        <button className="btn" onClick={onReset}>
           <FontAwesomeIcon icon="redo" /> reset
         </button>
       </span>
