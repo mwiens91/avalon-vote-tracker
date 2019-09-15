@@ -21,24 +21,23 @@ const EditablePlayerName = ({ name, onChange }) => {
     };
   }, [handleRootClick]);
 
+  if (editing) {
+    return (
+      <input
+        className="form-input"
+        style={{ maxWidth: "150px", margin: "auto" }}
+        value={name}
+        ref={ref}
+        onChange={e => onChange(e.currentTarget.value)}
+        onKeyPress={e =>
+          ["Enter", "Escape"].includes(e.key) && setEditing(false)
+        }
+      />
+    );
+  }
   return (
-    <span style={{ textAlign: "center" }}>
-      {editing ? (
-        <input
-          className="form-input"
-          style={{ maxWidth: "150px", margin: "auto" }}
-          value={name}
-          ref={ref}
-          onChange={e => onChange(e.currentTarget.value)}
-          onKeyPress={e =>
-            ["Enter", "Escape"].includes(e.key) && setEditing(false)
-          }
-        />
-      ) : (
-        <span onClick={e => setEditing(true)}>
-          {name.length >= 1 ? name : "<enter name>"}
-        </span>
-      )}
+    <span onClick={e => setEditing(true)}>
+      {name.length >= 1 ? name : "<enter name>"}
     </span>
   );
 };
