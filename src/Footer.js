@@ -3,11 +3,7 @@ import React from "react";
 const Footer = () => (
   <footer
     style={{
-      position: "absolute",
-      left: "0",
-      bottom: "0",
-      right: "0",
-      paddingBottom: "20px",
+      padding: "20px",
       fontSize: "13px",
       textAlign: "center",
     }}

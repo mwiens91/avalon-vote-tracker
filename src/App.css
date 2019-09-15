@@ -5,3 +5,9 @@ table {
 td {
   padding: 1.4em;
 }
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}

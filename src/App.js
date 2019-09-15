@@ -276,169 +276,171 @@ class App extends Component {
           />
         </div>
 
-        <br />
-
-        <table>
-          <thead>
-            <tr>
-              <th style={{ height: "4em", width: "250px" }}></th>
-              {this.state.players.map((name, idx) => (
-                <th
-                  key={idx.toString()}
-                  style={{ width: "8em", height: "2em" }}
-                >
-                  <EditablePlayerName
-                    name={name}
-                    onChange={newName => this.modifyPlayerName(idx, newName)}
-                  />
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {this.state.missions.map((mission, missionIdx) => (
-              <tr
-                key={missionIdx.toString()}
-                style={{ backgroundColor: getTableRowColor(mission.state) }}
-              >
-                <td>
-                  <div style={{ fontWeight: "bold" }}>
-                    mission {mission.missionNumber} > selection{" "}
-                    {mission.selectionNumber}
-                  </div>
-                  <div>
-                    <FontAwesomeIcon icon="crown" />{" "}
-                    {this.state.players[mission.leader]}
-                  </div>
-
-                  <div style={{ height: "1em" }}></div>
-                  <div>
-                    {mission.state === MISSION_IN_PROGRESS ? (
-                      <select
-                        className="form-select"
-                        style={{ maxWidth: "150px" }}
-                        disabled={!this.state.inProgress}
-                        value={this.state.missions[missionIdx].state}
-                        onChange={e => {
-                          this.modifyMissionState(
-                            missionIdx,
-                            e.currentTarget.value,
-                            this.addMission
-                          );
-                        }}
-                      >
-                        <option value={MISSION_IN_PROGRESS}>
-                          {MISSION_IN_PROGRESS}
-                        </option>
-                        {mission.onTeam.reduce(
-                          (count, val) => (val ? count + 1 : count),
-                          0
-                        ) >= 2 && (
-                          <>
-                            {mission.approves.reduce(
-                              (count, val) => (val ? count + 1 : count),
-                              0
-                            ) <=
-                            this.state.numPlayers / 2 ? (
-                              <option value={MISSION_REJECTED}>
-                                {MISSION_REJECTED}
-                              </option>
-                            ) : (
-                              <>
-                                <option value={MISSION_FAILED}>
-                                  {MISSION_FAILED}
-                                </option>
-                                <option value={MISSION_SUCCESSFUL}>
-                                  {MISSION_SUCCESSFUL}
-                                </option>
-                              </>
-                            )}
-                          </>
-                        )}
-                      </select>
-                    ) : (
-                      <span style={{ fontWeight: "bold" }}>
-                        {mission.state}
-                      </span>
-                    )}
-                  </div>
-                </td>
-                {this.state.players.map((_, playerIdx) => (
-                  <td
-                    key={playerIdx.toString() + missionIdx.toString()}
-                    style={{ textAlign: "center" }}
+        <div style={{ flex: "auto" }}>
+          <table>
+            <thead>
+              <tr>
+                <th style={{ height: "4em", width: "250px" }}></th>
+                {this.state.players.map((name, idx) => (
+                  <th
+                    key={idx.toString()}
+                    style={{ width: "8em", height: "2em" }}
                   >
-                    {mission.state === MISSION_IN_PROGRESS ? (
-                      <span>
-                        <div
-                          style={{
-                            maxWidth: "150px",
-                            margin: "auto",
-                            paddingBottom: "10px",
-                          }}
-                        >
-                          <select
-                            className="form-select"
-                            value={
-                              this.state.missions[missionIdx].onTeam[playerIdx]
-                            }
-                            onChange={e =>
-                              this.modifyMissionOnTeam(
-                                missionIdx,
-                                playerIdx,
-                                e.currentTarget.value
-                              )
-                            }
-                          >
-                            <option value={true}>on mission</option>
-                            <option value={false}>off mission</option>
-                          </select>
-                        </div>
-                        <div style={{ maxWidth: "150px", margin: "auto" }}>
-                          <select
-                            className="form-select"
-                            value={
-                              this.state.missions[missionIdx].approves[
-                                playerIdx
-                              ]
-                            }
-                            onChange={e =>
-                              this.modifyMissionApproves(
-                                missionIdx,
-                                playerIdx,
-                                e.currentTarget.value
-                              )
-                            }
-                          >
-                            <option value={true}>approve</option>
-                            <option value={false}>reject</option>
-                          </select>
-                        </div>
-                      </span>
-                    ) : (
-                      <span>
-                        <div style={{ height: "2em" }}>
-                          {this.state.missions[missionIdx].onTeam[
-                            playerIdx
-                          ] && <FontAwesomeIcon icon="user" />}
-                        </div>
-                        <div style={{ height: "2em" }}>
-                          {this.state.missions[missionIdx].approves[
-                            playerIdx
-                          ] ? (
-                            <FontAwesomeIcon icon="check" />
-                          ) : (
-                            <FontAwesomeIcon icon="times" />
-                          )}
-                        </div>
-                      </span>
-                    )}
-                  </td>
+                    <EditablePlayerName
+                      name={name}
+                      onChange={newName => this.modifyPlayerName(idx, newName)}
+                    />
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {this.state.missions.map((mission, missionIdx) => (
+                <tr
+                  key={missionIdx.toString()}
+                  style={{ backgroundColor: getTableRowColor(mission.state) }}
+                >
+                  <td>
+                    <div style={{ fontWeight: "bold" }}>
+                      mission {mission.missionNumber} > selection{" "}
+                      {mission.selectionNumber}
+                    </div>
+                    <div>
+                      <FontAwesomeIcon icon="crown" />{" "}
+                      {this.state.players[mission.leader]}
+                    </div>
+
+                    <div style={{ height: "1em" }}></div>
+                    <div>
+                      {mission.state === MISSION_IN_PROGRESS ? (
+                        <select
+                          className="form-select"
+                          style={{ maxWidth: "150px" }}
+                          disabled={!this.state.inProgress}
+                          value={this.state.missions[missionIdx].state}
+                          onChange={e => {
+                            this.modifyMissionState(
+                              missionIdx,
+                              e.currentTarget.value,
+                              this.addMission
+                            );
+                          }}
+                        >
+                          <option value={MISSION_IN_PROGRESS}>
+                            {MISSION_IN_PROGRESS}
+                          </option>
+                          {mission.onTeam.reduce(
+                            (count, val) => (val ? count + 1 : count),
+                            0
+                          ) >= 2 && (
+                            <>
+                              {mission.approves.reduce(
+                                (count, val) => (val ? count + 1 : count),
+                                0
+                              ) <=
+                              this.state.numPlayers / 2 ? (
+                                <option value={MISSION_REJECTED}>
+                                  {MISSION_REJECTED}
+                                </option>
+                              ) : (
+                                <>
+                                  <option value={MISSION_FAILED}>
+                                    {MISSION_FAILED}
+                                  </option>
+                                  <option value={MISSION_SUCCESSFUL}>
+                                    {MISSION_SUCCESSFUL}
+                                  </option>
+                                </>
+                              )}
+                            </>
+                          )}
+                        </select>
+                      ) : (
+                        <span style={{ fontWeight: "bold" }}>
+                          {mission.state}
+                        </span>
+                      )}
+                    </div>
+                  </td>
+                  {this.state.players.map((_, playerIdx) => (
+                    <td
+                      key={playerIdx.toString() + missionIdx.toString()}
+                      style={{ textAlign: "center" }}
+                    >
+                      {mission.state === MISSION_IN_PROGRESS ? (
+                        <span>
+                          <div
+                            style={{
+                              maxWidth: "150px",
+                              margin: "auto",
+                              paddingBottom: "10px",
+                            }}
+                          >
+                            <select
+                              className="form-select"
+                              value={
+                                this.state.missions[missionIdx].onTeam[
+                                  playerIdx
+                                ]
+                              }
+                              onChange={e =>
+                                this.modifyMissionOnTeam(
+                                  missionIdx,
+                                  playerIdx,
+                                  e.currentTarget.value
+                                )
+                              }
+                            >
+                              <option value={true}>on mission</option>
+                              <option value={false}>off mission</option>
+                            </select>
+                          </div>
+                          <div style={{ maxWidth: "150px", margin: "auto" }}>
+                            <select
+                              className="form-select"
+                              value={
+                                this.state.missions[missionIdx].approves[
+                                  playerIdx
+                                ]
+                              }
+                              onChange={e =>
+                                this.modifyMissionApproves(
+                                  missionIdx,
+                                  playerIdx,
+                                  e.currentTarget.value
+                                )
+                              }
+                            >
+                              <option value={true}>approve</option>
+                              <option value={false}>reject</option>
+                            </select>
+                          </div>
+                        </span>
+                      ) : (
+                        <span>
+                          <div style={{ height: "2em" }}>
+                            {this.state.missions[missionIdx].onTeam[
+                              playerIdx
+                            ] && <FontAwesomeIcon icon="user" />}
+                          </div>
+                          <div style={{ height: "2em" }}>
+                            {this.state.missions[missionIdx].approves[
+                              playerIdx
+                            ] ? (
+                              <FontAwesomeIcon icon="check" />
+                            ) : (
+                              <FontAwesomeIcon icon="times" />
+                            )}
+                          </div>
+                        </span>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
         <Footer />
       </div>
