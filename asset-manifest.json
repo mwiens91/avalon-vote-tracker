@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/avalon-vote-tracker/static/css/main.d2579bcd.chunk.css",
+    "main.js": "/avalon-vote-tracker/static/js/main.0cf774b6.chunk.js",
+    "main.js.map": "/avalon-vote-tracker/static/js/main.0cf774b6.chunk.js.map",
+    "runtime~main.js": "/avalon-vote-tracker/static/js/runtime~main.5f4be305.js",
+    "runtime~main.js.map": "/avalon-vote-tracker/static/js/runtime~main.5f4be305.js.map",
+    "static/js/2.83d7fda4.chunk.js": "/avalon-vote-tracker/static/js/2.83d7fda4.chunk.js",
+    "static/js/2.83d7fda4.chunk.js.map": "/avalon-vote-tracker/static/js/2.83d7fda4.chunk.js.map",
+    "index.html": "/avalon-vote-tracker/index.html",
+    "precache-manifest.b51ed5b2efc732ed195e47fb15b7f4bb.js": "/avalon-vote-tracker/precache-manifest.b51ed5b2efc732ed195e47fb15b7f4bb.js",
+    "service-worker.js": "/avalon-vote-tracker/service-worker.js",
+    "static/css/main.d2579bcd.chunk.css.map": "/avalon-vote-tracker/static/css/main.d2579bcd.chunk.css.map"
+  }
+}

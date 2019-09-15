@@ -1,0 +1,1 @@
+{"version":3,"sources":["App.css"],"names":[],"mappings":"AAAA,MACE,wBAAyB,CACzB,UACF,CACA,GACE,aACF,CAEA,KACE,gBAAiB,CACjB,YAAa,CACb,qBACF","file":"main.d2579bcd.chunk.css","sourcesContent":["table {\n  border-collapse: collapse;\n  width: 100%;\n}\ntd {\n  padding: 1.4em;\n}\n\n.App {\n  min-height: 100vh;\n  display: flex;\n  flex-direction: column;\n}\n"]}
