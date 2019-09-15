@@ -9,6 +9,7 @@ import {
   faPlay,
   faPlus,
   faRedo,
+  faStepBackward,
   faTimes,
   faUser,
   faUserSlash,
@@ -30,6 +31,7 @@ library.add(
   faPlay,
   faPlus,
   faRedo,
+  faStepBackward,
   faTimes,
   faUser,
   faUserSlash
@@ -259,6 +261,7 @@ class App extends Component {
           </h1>
 
           <ButtonMenu
+            canStepBackward={this.state.missions.length >= 2}
             inProgress={this.state.inProgress}
             isReady={this.isReadyToStart()}
             locked={this.state.locked}
@@ -268,6 +271,7 @@ class App extends Component {
             onUnlock={() => this.setState({ locked: false })}
             onReset={() => this.setState(INITIAL_STATE)}
             onStart={() => this.setState({ inProgress: true })}
+            onStepBackward={() => this.removeCurrentMission()}
           />
 
           <HelpMessage
@@ -307,6 +311,7 @@ class App extends Component {
                     <FontAwesomeIcon icon="crown" />{" "}
                     {this.state.players[mission.leader]}
                   </div>
+
                   <div style={{ height: "1em" }}></div>
                   <div>
                     {mission.state === MISSION_IN_PROGRESS ? (

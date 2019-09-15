@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ButtonMenu = ({
+  canStepBackward,
   inProgress,
   isReady,
   locked,
@@ -11,6 +12,7 @@ const ButtonMenu = ({
   onUnlock,
   onReset,
   onStart,
+  onStepBackward,
 }) => (
   <div>
     {locked ? (
@@ -25,7 +27,7 @@ const ButtonMenu = ({
           <FontAwesomeIcon icon="lock" /> lock
         </button>
         &nbsp;
-        {!inProgress && (
+        {!inProgress ? (
           <span>
             <button className="btn" onClick={onAddPlayer}>
               <FontAwesomeIcon icon="plus" /> add player
@@ -37,6 +39,17 @@ const ButtonMenu = ({
             &nbsp;
             <button className="btn" disabled={!isReady} onClick={onStart}>
               <FontAwesomeIcon icon="play" /> start
+            </button>
+            &nbsp;
+          </span>
+        ) : (
+          <span>
+            <button
+              className="btn"
+              disabled={!canStepBackward}
+              onClick={onStepBackward}
+            >
+              <FontAwesomeIcon icon="step-backward" /> step backward
             </button>
             &nbsp;
           </span>
