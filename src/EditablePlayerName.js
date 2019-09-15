@@ -25,6 +25,12 @@ const EditablePlayerName = ({ name, onChange }) => {
     };
   }, [handleRootClick, editing]);
 
+  useEffect(() => {
+    if (editing) {
+      ref.current.focus();
+    }
+  }, [editing]);
+
   if (editing) {
     return (
       <input
