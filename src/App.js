@@ -371,11 +371,9 @@ class App extends Component {
                     ) : (
                       <span>
                         <div style={{ paddingBottom: "10px" }}>
-                          {this.state.missions[missionIdx].onTeam[playerIdx] ? (
-                            <FontAwesomeIcon icon="user" />
-                          ) : (
-                            <FontAwesomeIcon icon="user-slash" />
-                          )}
+                          {this.state.missions[missionIdx].onTeam[
+                            playerIdx
+                          ] && <FontAwesomeIcon icon="user" />}
                         </div>
                         <div>
                           {this.state.missions[missionIdx].approves[
