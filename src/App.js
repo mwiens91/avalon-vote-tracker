@@ -330,13 +330,31 @@ class App extends Component {
                         <option value={MISSION_IN_PROGRESS}>
                           {MISSION_IN_PROGRESS}
                         </option>
-                        <option value={MISSION_REJECTED}>
-                          {MISSION_REJECTED}
-                        </option>
-                        <option value={MISSION_FAILED}>{MISSION_FAILED}</option>
-                        <option value={MISSION_SUCCESSFUL}>
-                          {MISSION_SUCCESSFUL}
-                        </option>
+                        {mission.onTeam.reduce(
+                          (count, val) => (val ? count + 1 : count),
+                          0
+                        ) >= 2 && (
+                          <>
+                            {mission.approves.reduce(
+                              (count, val) => (val ? count + 1 : count),
+                              0
+                            ) <=
+                            this.state.numPlayers / 2 ? (
+                              <option value={MISSION_REJECTED}>
+                                {MISSION_REJECTED}
+                              </option>
+                            ) : (
+                              <>
+                                <option value={MISSION_FAILED}>
+                                  {MISSION_FAILED}
+                                </option>
+                                <option value={MISSION_SUCCESSFUL}>
+                                  {MISSION_SUCCESSFUL}
+                                </option>
+                              </>
+                            )}
+                          </>
+                        )}
                       </select>
                     ) : (
                       <span style={{ fontWeight: "bold" }}>
